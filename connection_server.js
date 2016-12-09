@@ -8,8 +8,8 @@ var jsonify = require('redis-jsonify');
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var privateKey  = fs.readFileSync('/SSL/myserver.key', 'utf8');
-var certificate = fs.readFileSync('/SSL/prepaid_topas_tv_ee.crt', 'utf8');
+var privateKey  = fs.readFileSync('/etc/httpd/ssl/apache.key', 'utf8');
+var certificate = fs.readFileSync('/etc/httpd/ssl/apache.crt', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 
 // Redic Client
