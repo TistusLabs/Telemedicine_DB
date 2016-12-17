@@ -4,15 +4,17 @@ var restful = require('node-restful');
 var mongoose = restful.mongoose;
 
 // Schema
-var userSchema = new mongoose.Schema( {
+var userSchema = new mongoose.Schema({
 	name: String,
 	username: String,
 	password: String,
 	status: String,
 	type: String,
-	gender:String,
+	gender: String,
 	country: String,
 	city: String,
+	dob: String,
+	gender: String,
 	languages: [],
 	profileimage: String,
 	peer: {},
