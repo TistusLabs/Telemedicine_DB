@@ -46,4 +46,4 @@ app.use('/api', require('./routes/api'));
 // Start server
 httpServer.listen(3000);
 httpsServer.listen(3001);
-console.log('API is running on port 3000');
+console.log('API is running on port 3000 and 3001');
