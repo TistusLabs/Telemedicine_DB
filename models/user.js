@@ -14,10 +14,8 @@ var userSchema = new mongoose.Schema({
 	country: String,
 	city: String,
 	dob: String,
-	gender: String,
 	languages: [],
 	profileimage: String,
-	peer: {},
 	otherdata: {
 		speciality: String,
 		currency: String,
