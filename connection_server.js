@@ -135,6 +135,26 @@ ios.on('connection', function (socket) {
     ios.emit('callended', broadcast);
   });
 
+  socket.on('unmutevoice', function (broadcast) {
+    console.log("Unmute voice : "+broadcast);
+    ios.emit('unmutevoice', broadcast);
+  });
+
+  socket.on('mutevoice', function (broadcast) {
+    console.log("Mute voice : "+broadcast);
+    ios.emit('mutevoice', broadcast);
+  });
+
+  socket.on('unmutevideo', function (broadcast) {
+    console.log("Unmute video : "+broadcast);
+    ios.emit('unmutevideo', broadcast);
+  });
+
+  socket.on('mutevideo', function (broadcast) {
+    console.log("Mute voice : "+broadcast);
+    ios.emit('mutevideo', broadcast);
+  });
+
   socket.on('connected', function (username) {
     console.log("User connected to session in : "+username);
     //socket.emit('userconnected', username);
