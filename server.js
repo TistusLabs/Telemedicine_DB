@@ -35,7 +35,11 @@ ios.on("connection", function (socket) {
 });
 
 // MongoDB
-mongoose.connect('mongodb://localhost/rest_test');
+var options = {
+  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+};
+mongoose.connect('mongodb://localhost/rest_test',options);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
