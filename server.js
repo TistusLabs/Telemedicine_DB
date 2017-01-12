@@ -39,7 +39,7 @@ var options = {
   server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
   replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
 };
-mongoose.connect('mongodb://shehan:doktertislab@localhost/rest_test',options);
+mongoose.connect('mongodb://shehan:doktertislab@localhost/admin',options);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
