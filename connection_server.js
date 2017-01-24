@@ -108,6 +108,11 @@ app.post('/status/set', function (req, res) {
 
 });
 
+app.get('/status/getall', function (req, res) {
+  var elements = client.lrange( "userstatuses", 0, -1 )
+  res.send({ "status": true, "message": "All User status are retrived Successfully!", "value": elements });
+});
+
 io.on('connection', function (socket) {
   console.log("A browser connected - http");
   socket.on('disconnect', function () {
