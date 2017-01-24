@@ -96,7 +96,7 @@ app.post('/status/set', function (req, res) {
   var multi = client.multi();
   multi.rpush("userstatuses", json);
 
-  multi.exec(function (errors, results) {
+  multi.exec(function (err, results) {
     if (err) { throw err; } else {
       console.log("");
       console.log("Setting user status:");
