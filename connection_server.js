@@ -102,7 +102,6 @@ app.post('/status/set', function (req, res) {
       console.log("Setting user status:");
       console.log("Username: ", username, " - Status: ", status);
       console.log("error:", err);
-      client.expire(key, 86400); // expries each key after 24 hours
       res.send({ "status": true, "message": "User status updated Successfully!", "value": reply });
     }
   });
