@@ -115,7 +115,7 @@ app.get('/status/getall', function (req, res) {
   });
 });
 
-app.post('/status/reset', function (req, res) {
+app.delete('/status/reset', function (req, res) {
   console.log("");
   console.log("Resetting user status:");
   client.del('userstatuses', function (err, reply) {
