@@ -91,7 +91,7 @@ app.post('/status/set', function (req, res) {
 
   var username = req.body.username;
   var status = req.body.status;
-  var json = {"username": username ,"status": status };
+  var json = { "username": username, "status": status };
 
   var multi = client.multi();
   multi.rpush("userstatuses", json);
@@ -113,6 +113,17 @@ app.get('/status/getall', function (req, res) {
     console.log(statuses);
     res.send({ "status": true, "message": "All User status are retrived Successfully!", "value": statuses });
   });
+});
+
+app.post('/status/reset', function (req, res) {
+  console.log("");
+  console.log("Resetting user status:");
+  client.del('userstatuses', function (err, reply) {
+    console.log("reply:", reply);
+    console.log("error:", err);
+    res.send({ "status": true, "message": "Reset Successfull", "value": reply });
+  });
+
 });
 
 io.on('connection', function (socket) {
