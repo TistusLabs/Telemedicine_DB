@@ -124,6 +124,8 @@ app.post('/status/set', function (req, res) {
         console.log("Username: ", username, " - Status: ", status);
         console.log("error:", err);
         res.send({ "status": true, "message": "User status updated Successfully!", "value": reply });
+        
+        socket.broadcast.emit('statuschanged', statuses);
       }
     });
 
