@@ -109,9 +109,10 @@ app.post('/status/set', function (req, res) {
 });
 
 app.get('/status/getall', function (req, res) {
-  var elements = client.lrange( "userstatuses", 0, -1 )
-  console.log(elements);
-  res.send({ "status": true, "message": "All User status are retrived Successfully!", "value": elements });
+  client.lrange('userstatuses', 0, -1, function (err, statuses) {
+    console.log(statuses);
+    res.send({ "status": true, "message": "All User status are retrived Successfully!", "value": statuses });
+  });
 });
 
 io.on('connection', function (socket) {
