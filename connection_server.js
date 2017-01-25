@@ -8,8 +8,15 @@ var jsonify = require('redis-jsonify');
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var privateKey = fs.readFileSync('/etc/httpd/ssl/apache.key', 'utf8');
-var certificate = fs.readFileSync('/etc/httpd/ssl/apache.crt', 'utf8');
+var privateKey;
+var certificate;
+if (process.platform == "win32") {
+
+} else {
+  privateKey = fs.readFileSync('/etc/httpd/ssl/apache.key', 'utf8');
+  certificate = fs.readFileSync('/etc/httpd/ssl/apache.crt', 'utf8');
+}
+
 var credentials = { key: privateKey, cert: certificate };
 
 // Redic Client
@@ -78,32 +85,55 @@ app.post('/connection/del', function (req, res) {
 // routes related to online users
 
 app.post('/status/set', function (req, res) {
-
-  // get all items
-  /*var statuses = client.lrange("userstatuses", 0, -1);
-
-  statuses.forEach(function (reply, index) {
-    console.log("Reply " + index + ": " + reply.toString());
-    client.get(reply, function (err, data) {
-      console.log(data);
-    });
-});*/
-
+  // getting items from the request
   var username = req.body.username;
   var status = req.body.status;
   var json = { "username": username, "status": status };
 
-  var multi = client.multi();
-  multi.rpush("userstatuses", json);
+  // get all items
+  client.lrange('userstatuses', 0, -1, function (err, statuses) {
 
-  multi.exec(function (err, reply) {
-    if (err) { throw err; } else {
-      console.log("");
-      console.log("Setting user status:");
-      console.log("Username: ", username, " - Status: ", status);
-      console.log("error:", err);
-      res.send({ "status": true, "message": "User status updated Successfully!", "value": reply });
+    var usernameAlreadyAvailable = false;
+    var usernameIndex = 0;
+    var newList = [];
+    statuses.forEach(function (status, index) {
+      var convertedObj = JSON.parse(status);
+      if (convertedObj.username == username) {
+        usernameAlreadyAvailable = true;
+        usernameIndex = index;
+      }
+      statuses[index] = convertedObj;
+    });
+
+    if (usernameAlreadyAvailable) {
+      statuses.splice(usernameIndex, 1);
     }
+
+    client.del('userstatuses', function (err, reply) {
+      console.log("crearing the statuses.");
+    });
+    statuses.push(json);
+    statuses.forEach(function (status, index) {
+      newList.push(status);
+    });
+
+    client.rpush("userstatuses", newList, function (err, reply) {
+      if (err) { throw err; } else {
+        console.log("");
+        console.log("Setting user status:");
+        console.log("Username: ", username, " - Status: ", status);
+        console.log("error:", err);
+        res.send({ "status": true, "message": "User status updated Successfully!", "value": reply });
+      }
+    });
+
+
+    /*var multi = client.multi();
+    multi.rpush("userstatuses", statuses);
+
+    multi.exec(function (err, reply) {
+
+  });*/
   });
 
 });
