@@ -91,7 +91,7 @@ app.post('/status/set', function (req, res) {
 
   var username = req.body.username;
   var status = req.body.status;
-  var json = "{'username':'" + username + "','status':'" + status + "'}";
+  var json = {"username": username ,"status": status };
 
   var multi = client.multi();
   multi.rpush("userstatuses", json);
