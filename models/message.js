@@ -9,6 +9,8 @@ var messageSchema = new mongoose.Schema({
 	fromusername: String,
 	tousername: String,
     datetime: String,
+	status: String,
+	type: String,
 });
 
 // Return model
