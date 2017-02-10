@@ -12,4 +12,4 @@ var consultationSchema = new mongoose.Schema({
 });
 
 // Return model
-module.exports = restful.model('Consultations', productSchema);
+module.exports = restful.model('Consultations', consultationSchema);
