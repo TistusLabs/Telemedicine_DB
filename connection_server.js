@@ -224,7 +224,7 @@ ios.on('connection', function (socket) {
   });
 
   socket.on('filetransfer', function (broadcast) {
-    console.log("Sending file from " + broadcast.from.username + " to " + broadcast.to.username);
+    console.log("Sending file from " + broadcast.from + " to " + broadcast.to);
     ios.emit('filetransfer', broadcast);
   });
 
