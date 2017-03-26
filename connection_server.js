@@ -223,6 +223,11 @@ ios.on('connection', function (socket) {
     ios.emit('call', broadcast);
   });
 
+  socket.on('filetransfer', function (broadcast) {
+    console.log("Sending file from " + broadcast.from.username + " to " + broadcast.to.username);
+    ios.emit('filetransfer', broadcast);
+  });
+
   socket.on('callrejected', function (broadcast) {
     console.log("Rejected call from " + broadcast.username);
     ios.emit('callrejected', broadcast);

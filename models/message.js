@@ -11,6 +11,7 @@ var messageSchema = new mongoose.Schema({
     datetime: String,
 	status: String,
 	type: String,
+	msgtype: String,
 });
 
 // Return model
