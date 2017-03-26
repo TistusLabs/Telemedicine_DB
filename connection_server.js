@@ -13,7 +13,9 @@ var path = require('path');
 var privateKey;
 var certificate;
 
-path.isAbsolute('/var/www/html/file_uploads')
+
+path.join('file_uploads');
+
 
 if (process.platform == "win32") {
 
@@ -196,6 +198,7 @@ ios.on('connection', function (socket) {
     console.log("New file upload request - ss");
     var filename = path.basename(data.name);
     stream.pipe(fs.createWriteStream(filename));
+    console.log("New file name: "+filename);
   });
 
 
