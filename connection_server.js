@@ -191,7 +191,7 @@ ios.on('connection', function (socket) {
 
   ss(socket).on('file', function (stream, data) {
     console.log("New file upload request - ss");
-    var filename = path.basename(data.name);
+    var filename = path.basename("file_uploads/"+data.name);
     stream.pipe(fs.createWriteStream(filename));
   });
 
