@@ -223,9 +223,9 @@ ios.on('connection', function (socket) {
     ios.emit('call', broadcast);
   });
 
-  socket.on('filetransfer', function (broadcast) {
-    console.log("Sending file from " + broadcast.from + " to " + broadcast.to);
-    ios.emit('filetransfer', broadcast);
+  socket.on('offlineMessage', function (broadcast) {
+    console.log("Sending offline message from " + broadcast.from + " to " + broadcast.to);
+    ios.emit('offlineMessage', broadcast);
   });
 
   socket.on('callrejected', function (broadcast) {
