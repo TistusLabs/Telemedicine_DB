@@ -189,11 +189,6 @@ ios.on('connection', function (socket) {
 
   // socket.io-stream starting location  //
 
-  socket.on('file', function (username) {
-    console.log("New file upload request - socket");
-    //socket.broadcast.emit('useronline', username);
-  });
-
   ss(socket).on('file', function (stream, data) {
     console.log("New file upload request - ss");
     var filename = path.basename(data.name);
