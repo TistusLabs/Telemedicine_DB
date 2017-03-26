@@ -8,6 +8,8 @@ var jsonify = require('redis-jsonify');
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
+var ss = require('socket.io-stream');
+var path = require('path');
 var privateKey;
 var certificate;
 if (process.platform == "win32") {
@@ -124,7 +126,7 @@ app.post('/status/set', function (req, res) {
         console.log("Username: ", username, " - Status: ", status);
         console.log("error:", err);
         res.send({ "status": true, "message": "User status updated Successfully!", "value": reply });
-        
+
         //socket.broadcast.emit('statuschanged', statuses);
       }
     });
@@ -185,6 +187,16 @@ ios.on('connection', function (socket) {
     console.log('- Browser disconnected');
   });
 
+  // socket.io-stream starting location  //
+
+  ss(socket).on('file', function (stream, data) {
+    console.log("New file upload request");
+    var filename = path.basename(data.name);
+    stream.pipe(fs.createWriteStream(filename));
+  });
+
+
+  ///////////////////////////////////////////////
 
   socket.on('useronline', function (username) {
     console.log("User logged in : " + username);
